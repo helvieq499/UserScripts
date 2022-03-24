@@ -22,6 +22,8 @@ for (let i = 0; i < Math.random() * 5 + 3; i++)
       position: "fixed",
       zIndex: 2147483647,
       transform: "rotate(" + (Math.random() * 360) +"deg)",
+      opacity: 0.4,
+      pointerEvents: "none",
     });
     elems.push(d);
     document.body.appendChild(d);
