@@ -26,7 +26,7 @@ window.addEventListener("load", () => {
   
   Particles.init({
     selector: '#particles-helvieq499',
-    color: "#ff0000",
+    color: (() => { try { return window.self != window.top } catch { return true }} )() ? "#0000ff" : "#ff0000",
     connectParticles: true
   });
 });
