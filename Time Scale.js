@@ -27,9 +27,24 @@ let timeScale = 2.0;
   } 
 })(performance.now);
 
-(original => {
-  let start = performance.now();
+(original =>
   requestAnimationFrame = function(callback) {
     original.call(this, time => callback(time * timeScale));
   }
-})(requestAnimationFrame);
+)(requestAnimationFrame);
+
+(original => 
+  setTimeout = function(callback, interval, ...args) {
+    return original.call(this, callback, interval / timeScale, ...args);
+  }
+)(setTimeout);
+
+(original => 
+  setInterval = function(callback, interval, ...args) {
+    return original.call(this, callback, interval / timeScale, ...args);
+  }
+)(setInterval);
+
+Date = new Proxy(Date, {
+  construct: (target, args) => !args.length ? new target(Date.now()) : new target(...args)
+})
